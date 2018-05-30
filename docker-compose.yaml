@@ -1,0 +1,19 @@
+version: '2'
+services:
+    casadocodigodb:
+        image: mysql:5.5
+#        container_name: "casadocodigodb"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+#            - MYSQL_USER=dvd
+#            - MYSQL_PASSWORD=123456
+            - MYSQL_DATABASE=casadocodigo
+        ports:
+            - 3306:3306
+#        entrypoint:
+#            sh mysql -u root -p 123456 && mysql -e "update user set authentication_string=password('root'), plugin='mysql_native_password' where user='root';"
+        volumes:
+            -  /database:/var/lib/mysql
+#volumes:
+#    mysql_data:
+#        driver: d:/workspace/Example_SpringMVC-Full/database
