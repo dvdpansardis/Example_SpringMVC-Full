@@ -20,20 +20,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class JPAConfiguration {
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties aditionalProperties) {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
-		Properties properties = aditionalProperties();
-
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter );
 		factoryBean.setDataSource(dataSource);
-		factoryBean.setJpaProperties(properties);
+		factoryBean.setJpaProperties(aditionalProperties);
 		factoryBean.setPackagesToScan("org.Example_SpringMVC.Full.model");
 		
 		return factoryBean;
 	}
 
+	@Bean
+	@Profile("dev")
 	private Properties aditionalProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
